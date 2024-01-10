@@ -394,7 +394,8 @@ export default function sketch(p) {
 		draw() {
 			p.push();
 			p.fill(0, 128, 128);
-			p.text("Best Time: " + this.best_time, this.x, this.y);
+			console.log(this.best_time);
+			p.text("Best Time: " + this.best_time.toFixed(3), this.x, this.y);
 			p.pop();
 		}
 	}
