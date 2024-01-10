@@ -141,7 +141,7 @@ export default function sketch(p) {
 
 	let win_condition_check = () => {
 		if (coins.length <= 0) {
-			let current_time = Math.floor(timer.time / 1000); 
+			let current_time = timer.time / 1000; 
 			game_active = false;
 			if (current_time < record_time) {
 				record_time = current_time;
@@ -363,7 +363,7 @@ export default function sketch(p) {
 
 	class Timer {
 		constructor() {
-			this.x = 50;
+			this.x = 75;
 			this.y = 10;
 			this.time = 0;
 		}
@@ -375,14 +375,14 @@ export default function sketch(p) {
 		draw() {
 			p.push();
 			p.fill(0, 128, 128);
-			p.text("Time: " + Math.floor(this.time / 1000), this.x, this.y);
+			p.text("Time: " + (this.time / 1000).toFixed(3), this.x, this.y);
 			p.pop();
 		}
 	}
 
 	class BestTimeDisplay {
 		constructor() {
-			this.x = 300;
+			this.x = 275;
 			this.y = 10;
 			this.best_time = 0;
 		}
