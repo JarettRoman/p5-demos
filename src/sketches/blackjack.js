@@ -100,8 +100,7 @@ export default function sketch(p) {
         }
         if (hit_button) {
             hit_button.clicked();
-		}
-		
+        }
     };
 
     let calculate_score = (data) => {
@@ -301,10 +300,10 @@ export default function sketch(p) {
             p.push();
             p.fill('white');
             p.textSize(30);
-			p.text(this.victory ? 'YOU WIN!' : 'YOU LOSE!', this.x, this.y);
-			p.textSize(16);
-			p.text('Refresh to play again', this.x - 20, this.y + 30);
-			
+            p.text(this.victory ? 'YOU WIN!' : 'YOU LOSE!', this.x, this.y);
+            p.textSize(16);
+            p.text('Refresh to play again', this.x - 20, this.y + 30);
+
             p.pop();
         };
     }

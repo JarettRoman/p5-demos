@@ -20,7 +20,11 @@ class App extends Component {
                     <Router>
                         <Routes>
                             <Route path="/" element={<Layout />}>
-                                <Route index path="p5-demos" element={<Home />} />
+                                <Route
+                                    index
+                                    path="p5-demos"
+                                    element={<Home />}
+                                />
                                 <Route
                                     path="blackjack"
                                     element={<Blackjack />}

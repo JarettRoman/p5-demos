@@ -1,10 +1,10 @@
 {
-	"prettier.semi": true,
-	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"prettier.enableDebugLogs": true,
-	"javascript.format.semicolons": "insert"
+    "prettier.semi": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.enableDebugLogs": true,
+    "javascript.format.semicolons": "insert"
 }
