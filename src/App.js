@@ -20,7 +20,7 @@ class App extends Component {
                     <Router>
                         <Routes>
                             <Route path="/" element={<Layout />}>
-                                <Route index element={<Home />} />
+                                <Route path="p5-demos" element={<Home />} />
                                 <Route
                                     path="blackjack"
                                     element={<Blackjack />}
@@ -51,7 +51,7 @@ function Layout() {
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/p5-demos">Home</Link>
                     </li>
                     <li>
                         <Link to="/blackjack">Blackjack</Link>
