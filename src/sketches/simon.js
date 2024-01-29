@@ -3,9 +3,9 @@ export default function sketch(p) {
     let button_map = {};
     let playingSequence = false;
     let currentSequence;
-    let matchingLetter;
+    let letterMatcher;
     let BUTTON_LIFETIME = 300;
-
+    let bufferForStart = 1000;
     let current_state;
 
     let STATE = {
@@ -32,10 +32,14 @@ export default function sketch(p) {
         };
 
         current_state = STATE.START;
-        matchingLetter = keyToMatch();
+        letterMatcher = keyToMatch();
     };
     p.draw = () => {
-        update();
+        if (p.millis() > bufferForStart) {
+            if (current_state === STATE.SEQUENCE) {
+                playSequence();
+            }
+        }
         p.clear();
         p.background(220);
         switch (current_state) {
@@ -53,10 +57,12 @@ export default function sketch(p) {
                 });
                 break;
             case STATE.PLAYER_WIN:
-                console.log('draw win screen');
+                console.log('drawing win screen');
+                drawResultScreen(STATE.PLAYER_WIN);
                 break;
             case STATE.PLAYER_LOSE:
-                console.log('draw lose screen');
+                console.log('drawing lose screen');
+                drawResultScreen(STATE.PLAYER_LOSE);
                 break;
             default:
                 current_state = STATE.START;
@@ -64,36 +70,53 @@ export default function sketch(p) {
     };
 
     p.keyReleased = () => {
+        if (p.millis() < bufferForStart) {
+            return false;
+        }
         if (current_state === STATE.START) {
-            setTimeout(() => {
-                current_state = STATE.SEQUENCE;
-            }, 1000);
+            current_state = STATE.SEQUENCE;
+            return false;
         }
 
         if (current_state === STATE.PLAYER) {
             if (button_map.hasOwnProperty(p.key) && !button_map[p.key].active) {
                 button_map[p.key].activate();
                 // we want to check if the button pressed is the correct one
-                matchingLetter(p.key);
+                letterMatcher(p.key);
+                return false;
             }
+        }
+
+        if (
+            current_state === STATE.PLAYER_LOSE ||
+            current_state === STATE.PLAYER_WIN
+        ) {
+            resetGame();
+            return false;
         }
     };
 
-    let update = () => {
-        //processes updates to game state and data each frame
+    let resetGame = () => {
+        current_state = STATE.SEQUENCE;
+        letterMatcher = keyToMatch();
+    };
 
-        if (current_state === STATE.SEQUENCE) {
-            playSequence();
+    let drawResultScreen = (state) => {
+        let text = '';
+        if (state === STATE.PLAYER_WIN) {
+            text = 'You Win!';
         }
 
-        if (current_state === STATE.PLAYER_WIN) {
-            console.log('Player Wins');
-            p.noLoop();
+        if (state === STATE.PLAYER_LOSE) {
+            text = 'You Lose!';
         }
-
-        if (current_state === STATE.PLAYER_LOSE) {
-            console.log('Player Loses');
-            p.noLoop();
+        p.push();
+        p.textAlign(p.CENTER);
+        p.textSize(48);
+        p.fill('black');
+        p.text(text, p.width / 2, p.height / 2);
+        p.pop();
+        if (state === STATE.PLAYER_WIN) {
         }
     };
 
@@ -104,7 +127,9 @@ export default function sketch(p) {
                 if (key === currentSequence[index]) {
                     index++;
                     if (index === currentSequence.length) {
-                        current_state = STATE.PLAYER_WIN;
+                        setTimeout(() => {
+                            current_state = STATE.PLAYER_WIN;
+                        }, BUTTON_LIFETIME);
                     }
                 } else {
                     current_state = STATE.PLAYER_LOSE;
@@ -132,6 +157,7 @@ export default function sketch(p) {
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
         currentSequence = randomizedSequence;
+        console.log(currentSequence);
         return randomizedSequence;
     };
 
