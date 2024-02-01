@@ -97,6 +97,10 @@ export default function sketch(p) {
     };
 
     let resetGame = () => {
+        // if win, decrease input time and/or increase sequence replay time
+        // if win, increase point
+        // if loss, reset input time stuff to default
+        // if loss, reset point to 0
         current_state = STATE.SEQUENCE;
         letterMatcher = keyToMatch();
     };
