@@ -9,6 +9,7 @@ import {
 import { ReactP5Wrapper } from '@p5-wrapper/react';
 import blackjack from './sketches/blackjack';
 import platformer from './sketches/platformer';
+import simon from './sketches/simon';
 import './App.css';
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
                                     path="platformer"
                                     element={<Platformer />}
                                 />
+                                <Route path="simon" element={<Simon />} />
 
                                 {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
@@ -62,6 +64,9 @@ function Layout() {
                     </li>
                     <li>
                         <Link to="/platformer">Platformer</Link>
+                    </li>
+                    <li>
+                        <Link to="/simon">Simon</Link>
                     </li>
                 </ul>
             </nav>
@@ -100,6 +105,15 @@ function Platformer() {
             <h2>Platformer</h2>
             <ReactP5Wrapper sketch={platformer} />
             <>WASD to move. Space to jump.</>
+        </div>
+    );
+}
+
+function Simon() {
+    return (
+        <div>
+            <h2>Simon</h2>
+            <ReactP5Wrapper sketch={simon} />
         </div>
     );
 }
