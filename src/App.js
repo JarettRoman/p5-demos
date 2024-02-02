@@ -10,7 +10,17 @@ import { ReactP5Wrapper } from '@p5-wrapper/react';
 import blackjack from './sketches/blackjack';
 import platformer from './sketches/platformer';
 import simon from './sketches/simon';
+import searchlight from './sketches/searchlight';
 import './App.css';
+
+let pages = {
+    home: '/p5-demos',
+    blackjack: '/blackjack',
+    platformer: '/platformer',
+    simon: '/simon'
+};
+
+let pageArray = ['home', 'blackjack', 'platformer', 'simon', 'searchlight'];
 
 class App extends Component {
     render() {
@@ -21,6 +31,14 @@ class App extends Component {
                     <Router>
                         <Routes>
                             <Route path="/" element={<Layout />}>
+                                {/* {pageArray.forEach((page_name) => {
+                                    return (
+                                        <Route
+                                            path={`/${page_name}`}
+                                            element={<Home />}
+                                        />
+                                    );
+                                })} */}
                                 <Route
                                     index
                                     path="p5-demos"
@@ -35,6 +53,11 @@ class App extends Component {
                                     element={<Platformer />}
                                 />
                                 <Route path="simon" element={<Simon />} />
+
+                                <Route
+                                    path="searchlight"
+                                    element={<Searchlight />}
+                                />
 
                                 {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
@@ -67,6 +90,9 @@ function Layout() {
                     </li>
                     <li>
                         <Link to="/simon">Simon</Link>
+                    </li>
+                    <li>
+                        <Link to="/searchlight">Searchlight</Link>
                     </li>
                 </ul>
             </nav>
@@ -114,6 +140,15 @@ function Simon() {
         <div>
             <h2>Simon</h2>
             <ReactP5Wrapper sketch={simon} />
+        </div>
+    );
+}
+
+function Searchlight() {
+    return (
+        <div>
+            <h2>Searchlight</h2>
+            <ReactP5Wrapper sketch={searchlight} />
         </div>
     );
 }
